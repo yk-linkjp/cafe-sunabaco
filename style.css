@@ -1,0 +1,519 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap');
+
+/* ===== ベース ===== */
+:root{
+  --bg: #f3f0ec;
+  --paper: #ffffff;
+  --ink: #2b2622;
+  --muted: #6b625b;
+  --line: #cfc7bf;
+  --accent: #3a2a20;
+  --shadow: 0 10px 30px rgba(0,0,0,.12);
+  --radius: 14px;
+    /* ▼ 統一感用に追加 ▼ */
+  --radius-card: 14px;
+  --radius-inner: 10px;
+  --border-soft: 1px solid rgba(0,0,0,.06);
+  --shadow-soft: 0 6px 16px rgba(0,0,0,.06);
+  --accent-soft: #4a382d;
+}
+
+*{ box-sizing: border-box; }
+body{
+  margin:0;
+  font-family: "Noto Sans JP", system-ui, -apple-system, "Hiragino Kaku Gothic ProN", sans-serif;
+  color: var(--ink);
+  background: #111; /* 外側を暗めにして“スマホ枠感” */
+}
+
+img{ max-width:100%; display:block; }
+
+.page{
+  min-height: 100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding: 24px 12px;
+}
+
+.phone{
+  width: 375px;               /* スマホ幅 */
+  background: var(--bg);
+  border-radius: 22px;
+  box-shadow: var(--shadow);
+  overflow:hidden;
+  border: 1px solid rgba(255,255,255,.08);
+}
+
+/* ===== タイトル ===== */
+.site-title{
+  background: var(--bg);
+  padding: 18px 16px 10px;
+  text-align:center;
+}
+.site-title h1{
+  margin:0;
+  font-size: 20px;
+  letter-spacing: .12em;
+  font-weight: 700;
+  font-family: "Noto Serif JP", serif;
+}
+
+/* ===== ヒーロー ===== */
+.hero{
+  position: relative;
+  height: 240px;
+  overflow:hidden;
+  background:#000;
+}
+.hero-img{
+  width:100%;
+  height:100%;
+  object-fit: cover;
+  transform: scale(1.02);
+}
+.hero-overlay{
+  position:absolute;
+  inset:0;
+  background: rgba(0,0,0,.25); /* ←完成形：25% */
+}
+.hero-copy{
+  position: absolute;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 10px 16px;
+
+  font-family: "Noto Serif JP", serif;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: .08em;
+  white-space: nowrap;
+
+  color: #f5efe8;
+  text-shadow: 0 2px 12px rgba(0,0,0,.45);
+}
+
+
+
+/* ===== カード ===== */
+.card{
+  background: var(--paper);
+  margin: 14px 14px 0;
+  border-radius: var(--radius-card);   /* ← 差し替え */
+  border: var(--border-soft);           /* ← 差し替え */
+  padding: 14px 12px;
+}
+
+/* 見出し（左右線） */
+.section-title{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  margin: 2px 2px 12px;
+}
+.section-title h2{
+  margin:0;
+  font-size: 15px;
+  letter-spacing:.12em;
+  font-weight: 600;
+  color: var(--ink);
+  font-family: "Noto Serif JP", serif;
+}
+.section-title h2.en{
+  letter-spacing:.18em;
+}
+.section-title .line{
+  height: 1px;
+  background: var(--line);
+  flex:1;
+}
+
+/* ===== ごあいさつ ===== */
+.greeting{
+  display:grid;
+  grid-template-columns: 92px 1fr;
+  gap: 12px;
+  align-items:center;
+}
+.owner-photo{
+  width: 92px;
+  height: 92px;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 2px solid #e7e0d8;
+  box-shadow: 0 6px 14px rgba(0,0,0,.08);
+}
+.greeting-text p{
+  margin:0;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+.sign{
+  margin-top: 8px !important;
+  text-align:right;
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* ===== メニュー ===== */
+.menu-grid{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.menu-item{
+  background: #faf8f6;
+  border: 1px solid rgba(0,0,0,.06);
+  border-radius: 12px;
+  overflow:hidden;
+  text-align:center;
+  padding-bottom: 8px;
+}
+.menu-item img{
+  width:100%;
+  height: 70px;
+  object-fit: cover;
+}
+.menu-item h3{
+  margin: 10px 6px 4px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .02em;      /* ★少し詰める（.04→.02） */
+  line-height: 1.2;
+
+  white-space: nowrap;        /* ★改行させない */
+  overflow: hidden;           /* ★はみ出し隠す */
+  text-overflow: ellipsis;    /* ★長い場合は… */
+}
+.menu-item .price{
+  margin:0;
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 600;
+}
+/* ===== MENU：画像ホバー演出 ===== */
+.menu-item{
+  overflow: hidden;                 /* 拡大がカードからはみ出さない */
+}
+
+.menu-item img{
+  transition: transform .35s ease, filter .35s ease;
+  transform: scale(1);
+  will-change: transform;
+}
+
+.menu-item:hover img{
+  transform: scale(1.08);           /* “ぶわん”の正体：拡大 */
+  filter: brightness(1.05) contrast(1.03);
+}
+.menu-item{
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.menu-item:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(0,0,0,.12);
+}
+@media (hover: none){
+  .menu-item:hover img{ transform: none; filter: none; }
+  .menu-item:hover{ transform: none; box-shadow: none; }
+}
+
+/* ===== アクセス ===== */
+.access{
+  background: var(--paper);
+}
+
+/* 見出しは「ごあいさつ」「MENU」と共通の section-title を使う前提 */
+/* pill は使わないので不要 */
+
+/* レイアウト */
+.access-grid{
+  display: grid;
+  grid-template-columns: 1fr 170px;
+  gap: 12px;
+  align-items: stretch;
+}
+
+/* 左：情報リスト */
+.access-list .row{
+  display: flex;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px dashed rgba(0,0,0,.08);
+}
+.access-list .row:last-child{
+  border-bottom: none;
+}
+
+.icon{
+  width: 20px;
+  text-align: center;
+}
+
+.label{
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.value{
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* 右：地図カード（MENUカードと同じ作法） */
+.map-card{
+  background: var(--paper);
+  border: var(--border-soft);
+  border-radius: var(--radius-card);
+  padding: 10px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  box-shadow: none;
+  height: 100%;              /* 左の高さに合わせる */
+}
+.map-embed{
+  flex: 1;                           /* ★余った高さを地図に使う */
+  min-height: 160px;                 /* 見た目用の最低高さ */
+  border-radius: var(--radius-inner);
+  overflow: hidden;                  /* 角丸を効かせる */
+  border: var(--border-soft);
+  background: #e9e4de;
+}
+
+.map-embed iframe{
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+
+.map-label{
+  font-size: 12px;
+}
+
+/* アクセス欄：リンク風 */
+.access .btn{
+  background: transparent;
+  border: none;
+  padding: 6px 0;
+  width: fit-content;
+  margin: 0 auto;
+  color: var(--accent-soft);
+  font-size: 11px;
+  font-weight: 600;
+  text-decoration: underline;
+
+  text-underline-offset: 3px;     /* ← 少し詰める */
+  text-decoration-thickness: 1px; /* ← 下線を細く */
+  opacity: .9;                    /* ← 主張を少し弱める */
+}
+
+.access .btn:hover{
+  filter: none;
+  opacity: .75;                   /* ← hover時だけ少し薄く */
+}
+
+
+
+/* ===== フッター ===== */
+.footer{
+  padding: 16px;
+  text-align: center;
+  color: rgba(255,255,255,.88);         /* ★少し濃く */
+  text-shadow: 0 2px 10px rgba(0,0,0,.45); /* ★読みやすく */
+}
+.footer small{
+  color: inherit;
+}
+
+/* ===== 小さいスマホだけ微調整 ===== */
+@media (max-width: 390px){
+  .phone{
+    width: min(375px, 100%);
+  }
+}
+
+/* ===== PC向けレイアウト（見やすく調整 + ヒーロー全幅 + 右上ナビ）===== */
+@media (min-width: 900px){
+  /* 背景 */
+  body{
+    background: var(--bg);
+    font-size: 16px;
+    line-height: 1.9;
+  }
+
+  /* スムーズスクロール + 固定ナビ分の余白 */
+  html{
+    scroll-behavior: smooth;
+    scroll-padding-top: 88px; /* 右上ボタンの高さ分 */
+  }
+
+  /* 外側の余白と幅 */
+  .page{
+    align-items: flex-start;
+    padding: 32px 24px;
+  }
+
+  /* スマホ枠解除＋中央寄せ */
+  .phone{
+    width: min(1100px, 100%);
+    margin: 0 auto;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+    overflow: visible;
+  }
+
+  /* タイトル */
+  .site-title h1{
+    font-size: 28px;
+    letter-spacing: .14em;
+  }
+
+  /* =========================
+     ②A案：ヒーローだけ全幅にする
+     ========================= */
+  .hero{
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+
+    height: min(70vh, 560px); /* 画面に合わせつつ上限 */
+    border-radius: 0;
+    overflow: hidden;
+    background: #000;
+  }
+
+  /* ①A案：RELAXが途切れないように見せたい位置へ */
+  .hero-img{
+    object-position: 50% 15%; /* ←上に寄せる（0〜30%で調整） */
+  }
+
+  .hero-copy{
+    font-size: 26px;
+    letter-spacing: .1em;  /* 少しだけ余韻を足す */
+    padding: 14px 12px;
+    bottom: 32px;
+  }
+  .hero::after{
+    content: "";
+    display: block;
+    height: 48px;
+    background: linear-gradient(
+      to bottom,
+      rgba(0,0,0,.18),
+      rgba(0,0,0,0)
+    );
+  }
+  /* カード：余白を広げる */
+  .card{
+    margin: 24px 0 0;
+    padding: 24px 24px;
+  }
+
+  /* セクション見出し（ごあいさつ/MENU/アクセス） */
+  .section-title h2{
+    font-size: 18px;
+  }
+
+  /* ごあいさつ */
+  .greeting{
+    grid-template-columns: 140px 1fr;
+    gap: 22px;
+  }
+  .owner-photo{
+    width: 140px;
+    height: 140px;
+  }
+  .greeting-text p{
+    font-size: 15px;
+    line-height: 2.0;
+  }
+
+  /* ===== MENU：PCは 3×2 にする ===== */
+  .menu-grid{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  /* MENUカード：写真が見えるように高さUP */
+  .menu-item img{
+    height: 130px;
+  }
+  .menu-item h3{
+    font-size: 14px;
+    margin-top: 12px;
+  }
+  .menu-item .price{
+    font-size: 13px;
+  }
+
+  /* アクセス */
+  .access-grid{
+    grid-template-columns: 1fr 340px;
+    gap: 20px;
+    align-items: stretch;
+  }
+  .label{ font-size: 13px; }
+  .value{ font-size: 15px; }
+
+  .map-embed{
+    min-height: 260px;
+  }
+
+  /* フッター：白文字前提を解除（背景が明るいので） */
+  .footer{
+    color: rgba(43,38,34,.75);
+    text-shadow: none;
+  }
+
+  /* =========================
+     ③：右上固定ナビ（ページ内リンク）
+     ※HTMLに <nav class="quick-nav">... を追加して使う
+     ========================= */
+  .quick-nav{
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    gap: 10px;
+    z-index: 1000;
+  }
+  .quick-nav a{
+    background: rgba(255,255,255,.82);
+    border: 1px solid rgba(0,0,0,.10);
+    border-radius: 999px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--ink);
+    text-decoration: none;
+    box-shadow: 0 10px 22px rgba(0,0,0,.08);
+    backdrop-filter: blur(6px);
+  }
+  .quick-nav a:hover{
+    opacity: .85;
+  }
+}
+/* ===== スマホ版：ページ内ナビは非表示 ===== */
+@media (max-width: 899px){
+  .quick-nav{
+    display: none;
+  }
+}
+
+
+
+
+
+
